@@ -1,0 +1,110 @@
+/* 1. GRUNNMUR (Body og overskrifter) */
+body { 
+    font-family: sans-serif; 
+    background-color: #f8f9fa; 
+    padding: 20px; 
+    color: #333; 
+}
+
+h1 { text-align: center; }
+h3 { border-bottom: 2px solid #000000; padding-bottom: 5px; }
+
+/* 2. LAYOUT (Container og de to kolonnene) */
+.container.wide { 
+    max-width: 1000px; 
+    margin: auto; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 12px; 
+}
+
+.split-row { 
+    display: flex; 
+    gap: 30px; 
+    align-items: flex-start; 
+}
+
+.section { 
+    flex: 1; 
+    min-width: 300px; 
+}
+
+/* 3. KOMPONENTER (Kortene og listene) */
+.card { 
+    position: relative; 
+    padding: 20px; 
+    background: #ffffff; 
+    border-radius: 8px; 
+    margin-bottom: 15px; 
+    border: 1px solid #eee; 
+}
+
+.green-border { 
+    border-left: 6px solid #000000;
+    background: #fafafa; 
+}
+
+.todo-list-style { 
+    list-style: none; 
+    padding: 0; 
+    margin: 10px 0; 
+}
+
+.todo-list-style li { 
+    margin-bottom: 8px; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 4px; 
+}
+
+/* 4. INPUTS OG SKJEMAER */
+input, textarea { 
+    width: 90%; 
+    padding: 10px; 
+    margin: 5px 0; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    display: block; 
+}
+
+textarea { 
+    height: 60px; 
+    resize: none; 
+}
+
+/* 5. KNAPPER (Suksess-knapper og Slett-knapp) */
+button { 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    background: #000000;
+    color: white; 
+    font-weight: bold; 
+}
+
+.btn-small { 
+    padding: 8px 15px; 
+    background: #000000; 
+}
+
+.btn-main { 
+    width: 100%; 
+    margin-top: 10px; 
+}
+
+.btn-delete { 
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    background: #000000; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 2px 8px; 
+    cursor: pointer; 
+    font-size: 12px;
+}
+
+.btn-delete:hover { 
+    background: #000000; 
+}
