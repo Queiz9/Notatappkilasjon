@@ -1,7 +1,7 @@
 # Todo notater
-# Beskrivelse
+ Beskrivelse
 
-# En enkel web-applikasjon for å holde styr på hverdagen. Den er delt i to seksjoner: en for vanlige notater og en for To do lister med # sjekkbokser. Alle data lagres i en SQLite-database.
+En enkel web-applikasjon for å holde styr på hverdagen. Den er delt i to seksjoner: en for vanlige notater og en for To do lister med # sjekkbokser. Alle data lagres i en SQLite-database.
 
 Installasjon og oppstart av server
 
@@ -11,12 +11,12 @@ Installer nødvendige biblioteker:
 Start serveren fra terminalen:
 
 skriv 
-# pip install fastapi uvicorn
+" pip install fastapi uvicorn "
 
 
 
 så skriv 
-# uvicorn server:app --reload
+" uvicorn server:app --reload "
 
 Hvordan starte klienten
 
