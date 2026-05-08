@@ -5,63 +5,20 @@
 </head>
 <body>
     <div class="container wide">
-        <h1>Todo-notater</h1>
-        
-        <div class="split-row">
-            <div class="section">
-                <div class="card green-border">
-                    <h2>Nytt Notat</h2>
-                    <input id="tittel-notat" type="text" placeholder="Tittel på notat">
-                    <textarea id="notat-tekst" placeholder="Skriv notatet ditt her..."></textarea>
-                    <button onclick="lagreNotat()" class="btn-main">Lagre Notat</button>
-                </div>
-                <h3>Dine Notater</h3>
-                <div id="output-notat"></div>
-            </div>
+        <h1>Notater</h1>
 
-            <div class="section">
-                <div class="card green-border">
-                    <h2>Ny To-do liste</h2>
-                    <input id="tittel-todo" type="text" placeholder="Navn på listen">
-                    
-                    <ul id="temp-oppgaver" class="todo-list-style"></ul>
-                    
-                    <div class="input-row">
-                        <input id="oppgave-inn" type="text" placeholder="Ny oppgave">
-                        <button onclick="leggTilOppgave()" class="btn-small">Legg til</button>
-                    </div>
-                    <button onclick="lagreTodo()" class="btn-main">Lagre Liste</button>
-                </div>
-                <h3>Dine Lister</h3>
-                <div id="output-todo"></div>
-            </div>
+        <div class="card green-border">
+            <h2>Nytt Notat</h2>
+            <input id="tittel-notat" type="text" placeholder="Tittel på notat">
+            <textarea id="notat-tekst" placeholder="Skriv notatet ditt her..."></textarea>
+            <button onclick="lagreNotat()" class="btn-main">Lagre Notat</button>
         </div>
+
+        <h3>Dine Notater</h3>
+        <div id="output-notat"></div>
     </div>
 
     <script>
-        let oppgaver = [];
-
-        function leggTilOppgave() {
-            const inn = document.getElementById('oppgave-inn');
-            if (inn.value.trim() !== "") {
-                oppgaver.push({ tekst: inn.value, fullfort: false });
-                inn.value = "";
-                tegnTempListe();
-            }
-        }
-
-        function tegnTempListe() {
-            const ul = document.getElementById('temp-oppgaver');
-            ul.innerHTML = oppgaver.map((o, i) => `<li><input type="checkbox"> ${o.tekst}</li>`).join('');
-        }
-
-        async function slettPunkt(id) {
-            if (confirm("Vil du slette dette?")) {
-                await fetch(`/slett/${id}`, { method: 'DELETE' });
-                hentData(); 
-            }
-        }
-
         async function lagreNotat() {
             const t = document.getElementById('tittel-notat').value;
             const c = document.getElementById('notat-tekst').value;
@@ -75,37 +32,16 @@
             hentData();
         }
 
-        async function lagreTodo() {
-            const t = document.getElementById('tittel-todo').value;
-            await fetch('/lagre', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ title: t, content: JSON.stringify(oppgaver), type: 'todo' })
-            });
-            document.getElementById('tittel-todo').value = "";
-            oppgaver = [];
-            tegnTempListe();
-            hentData();
-        }
-
         async function hentData() {
             const svar = await fetch('/hent');
             const data = await svar.json();
-            let htmlNotat = "";
-            let htmlTodo = "";
-            
+            let html = "";
             data.forEach((n) => {
-                if (n.type === 'todo') {
-                    const liste = JSON.parse(n.content);
-                    let visning = `<ul class="todo-list-style">${liste.map(o => `<li><input type="checkbox"> ${o.tekst}</li>`).join('')}</ul>`;
-                    htmlTodo += `<div class="card"><button onclick="slettPunkt(${n.id})" class="btn-delete">X</button><h3>${n.title}</h3>${visning}</div>`;
-                } else {
-                    htmlNotat += `<div class="card"><button onclick="slettPunkt(${n.id})" class="btn-delete">X</button><h3>${n.title}</h3><p>${n.content}</p></div>`;
-                }
+                html += `<div class="card"><h3>${n.title}</h3><p>${n.content}</p></div>`;
             });
-            document.getElementById('output-notat').innerHTML = htmlNotat;
-            document.getElementById('output-todo').innerHTML = htmlTodo;
+            document.getElementById('output-notat').innerHTML = html;
         }
+
         window.onload = hentData;
     </script>
 </body>
