@@ -37,9 +37,14 @@
             const data = await svar.json();
             let html = "";
             data.forEach((n) => {
-                html += `<div class="card"><h3>${n.title}</h3><p>${n.content}</p></div>`;
+                html += `<div class="card"><button onclick="slettNotat(${n.id})" class="btn-delete">Slett</button><h3>${n.title}</h3><p>${n.content}</p></div>`;
             });
             document.getElementById('output-notat').innerHTML = html;
+        }
+
+        async function slettNotat(id) {
+            await fetch(`/slett/${id}`, { method: 'DELETE' });
+            hentData();
         }
 
         window.onload = hentData;
